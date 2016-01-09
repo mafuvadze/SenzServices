@@ -51,10 +51,12 @@ public class AppListAdapter extends ArrayAdapter {
         holder.name = (TextView) convertView.findViewById(R.id.name);
         holder.ratingBar = (RatingBar) convertView.findViewById(R.id.rating);
         holder.action_btn = (Button) convertView.findViewById(R.id.action);
+        holder.description = (TextView) convertView.findViewById(R.id.descr);
 
         holder.icon.setImageBitmap(info.getIcon());
         holder.name.setText(info.getName());
         holder.ratingBar.setRating((float) info.getRating());
+        holder.description.setText(info.getDescription());
 
         if (info.isInstalled()) {
             holder.action_btn.setText("UNINSTALL");
@@ -70,5 +72,6 @@ public class AppListAdapter extends ArrayAdapter {
         Button action_btn;
         RatingBar ratingBar;
         ImageView icon;
+        TextView description;
     }
 }

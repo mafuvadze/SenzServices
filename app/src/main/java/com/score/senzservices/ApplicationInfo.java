@@ -13,19 +13,21 @@ public class ApplicationInfo {
     private boolean isInstalled;
     private double rating;
     private Bitmap icon;
+    private String description;
     Context context;
 
     public ApplicationInfo(Context context, String name, boolean isInstalled, double rating)
     {
-        this(context, name, isInstalled, rating, BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher));
+        this(context, name, isInstalled, rating, "description of " + name, BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher));
     }
 
-    public ApplicationInfo(Context context, String name, boolean isInstalled, double rating, Bitmap icon)
+    public ApplicationInfo(Context context, String name, boolean isInstalled, double rating,String description, Bitmap icon)
     {
         this.name = name;
         this.isInstalled = isInstalled;
         this.rating = rating;
         this.icon = icon;
+        this.description = description;
         this.context = context;
     }
 
@@ -59,5 +61,13 @@ public class ApplicationInfo {
 
     public void setIcon(Bitmap icon){
         this.icon = icon;
+    }
+
+    public String getDescription(){
+        return description;
+    }
+
+    public void setDesciption(String description){
+        this.description = description;
     }
 }
