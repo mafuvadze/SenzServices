@@ -2,6 +2,7 @@ package com.score.senzservices;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,8 +36,7 @@ public class AppListAdapter extends ArrayAdapter {
         return apps.size();
     }
 
-    public void initUi(View convertView, ApplicationInfo info, ViewHolder holder)
-    {
+    public void initUi(View convertView, ApplicationInfo info, ViewHolder holder) {
         holder.icon = (ImageView) convertView.findViewById(R.id.icon);
         holder.action_btn = (Button) convertView.findViewById(R.id.action);
         holder.description = (TextView) convertView.findViewById(R.id.descr);
@@ -50,6 +50,11 @@ public class AppListAdapter extends ArrayAdapter {
             holder.ratingBar.setVisibility(View.GONE);
         } else {
             holder.ratingBar.setRating((float) info.getRating());
+        }
+
+        if (info.isInstalled()) {
+            holder.action_btn.setText("UNINSTALL");
+            holder.action_btn.setBackgroundResource(R.color.Red);
         }
     }
 
@@ -70,11 +75,6 @@ public class AppListAdapter extends ArrayAdapter {
         view = convertView;
         initUi(convertView, info, holder);
 
-        if (info.isInstalled()) {
-            holder.action_btn.setText("UNINSTALL");
-            holder.action_btn.setBackgroundResource(R.color.Red);
-        }
-
         holder.action_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,8 +89,15 @@ public class AppListAdapter extends ArrayAdapter {
                         context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + info.getPackageName())));
                     }
                 }
-                initUi(view, info, holder);
+                if (!info.isInstalled()) {
+                    holder.action_btn.setText("INSTALL");
+                    holder.action_btn.setBackgroundResource(R.color.DodgerBlue);
+                }else{
+                    holder.action_btn.setText("UNINSTALL");
+                    holder.action_btn.setBackgroundResource(R.color.Red);
+                }
             }
+
         });
 
         return convertView;

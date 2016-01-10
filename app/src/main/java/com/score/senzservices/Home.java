@@ -1,5 +1,6 @@
 package com.score.senzservices;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -69,6 +70,14 @@ public class Home extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_home, menu);
         return true;
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        finish();
+        Intent intent = new Intent(Home.this, Home.class);
+        startActivity(intent);
     }
 
     @Override

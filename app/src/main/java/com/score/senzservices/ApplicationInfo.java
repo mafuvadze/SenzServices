@@ -1,6 +1,7 @@
 package com.score.senzservices;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -44,7 +45,13 @@ public class ApplicationInfo {
     }
 
     public boolean isInstalled() {
-        return isInstalled;
+        PackageManager pm = context.getPackageManager();
+        try {
+            pm.getPackageInfo(this.getPackageName(), PackageManager.GET_ACTIVITIES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
     }
 
     public void setIsInstalled(boolean isInstalled) {
@@ -74,4 +81,5 @@ public class ApplicationInfo {
     public void setPackageName(String packageName){
         this.packageName = packageName;
     }
+
 }

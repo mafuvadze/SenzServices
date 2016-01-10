@@ -12,6 +12,6 @@
         android:id="@+id/action_filter"
         android:orderInCategory="100"
         android:title="Filter"
-        app:showAsAction="always"
+        app:showAsAction="never"
         android:icon="@mipmap/ic_filter"/>
 </menu>
