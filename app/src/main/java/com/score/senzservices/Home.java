@@ -1,5 +1,7 @@
 package com.score.senzservices;
 
+import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,6 +19,7 @@ public class Home extends AppCompatActivity {
     ArrayList<ApplicationInfo> apps = new ArrayList<>();
     Random random; //to be deleted (for testing purposes only)
     ListView app_list;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,8 +30,7 @@ public class Home extends AppCompatActivity {
         initUi();
     }
 
-    private void initUi()
-    {
+    private void initUi() {
         random = new Random();
         app_list = (ListView) findViewById(R.id.applications);
         addApps();
@@ -38,17 +40,30 @@ public class Home extends AppCompatActivity {
 
     //to be deleted (for testing purposes only)
     public void addApps() {
-        String name = "ABCDEFGHIJKLMN";
-        for (char ch : name.toCharArray()) {
-            apps.add(new ApplicationInfo(this, "Application " + ch, random.nextBoolean(), random.nextInt(5)+1));
-        }
+        //locationz
+        apps.add(new ApplicationInfo(getBaseContext(), "LocationZ", isPackageInstalled("com.score.senz"), 5,
+                "Location sharing app","com.score.senz", BitmapFactory.decodeResource(getResources(), R.mipmap.ic_locationz)));
+
+        apps.add(new ApplicationInfo(getBaseContext(), "SenZors", isPackageInstalled("com.score.senzors"), 5,
+                "Shares your location to your friend/kid and their location safely","com.score.senzors", BitmapFactory.decodeResource(getResources(), R.mipmap.ic_senzors)));
+
+        apps.add(new ApplicationInfo(getBaseContext(), "Pi", isPackageInstalled("org.scorelab.pi"), -1,
+                "Smart Home Controlling Application","org.scorelab.pi", BitmapFactory.decodeResource(getResources(), R.mipmap.ic_pi)));
     }
 
-    private void filterAppList()
-    {
+    private void filterAppList() {
         //to be implemented with real data
     }
 
+    private boolean isPackageInstalled(String packagename) {
+        PackageManager pm = getBaseContext().getPackageManager();
+        try {
+            pm.getPackageInfo(packagename, PackageManager.GET_ACTIVITIES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -67,7 +82,7 @@ public class Home extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-        if(id == R.id.action_filter){
+        if (id == R.id.action_filter) {
             filterAppList();
         }
 

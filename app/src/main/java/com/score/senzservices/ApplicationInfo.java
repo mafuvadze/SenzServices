@@ -10,18 +10,13 @@ import android.graphics.drawable.BitmapDrawable;
  */
 public class ApplicationInfo {
     private String name;
+    private String packageName;
     private boolean isInstalled;
-    private double rating;
+    private Double rating;
     private Bitmap icon;
     private String description;
     Context context;
-
-    public ApplicationInfo(Context context, String name, boolean isInstalled, double rating)
-    {
-        this(context, name, isInstalled, rating, "description of " + name, BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher));
-    }
-
-    public ApplicationInfo(Context context, String name, boolean isInstalled, double rating,String description, Bitmap icon)
+    public ApplicationInfo(Context context, String name, boolean isInstalled, double rating,String description,String packageName, Bitmap icon)
     {
         this.name = name;
         this.isInstalled = isInstalled;
@@ -29,6 +24,7 @@ public class ApplicationInfo {
         this.icon = icon;
         this.description = description;
         this.context = context;
+        this.packageName = packageName;
     }
 
     public double getRating() {
@@ -69,5 +65,13 @@ public class ApplicationInfo {
 
     public void setDesciption(String description){
         this.description = description;
+    }
+
+    public String getPackageName(){
+        return packageName;
+    }
+
+    public void setPackageName(String packageName){
+        this.packageName = packageName;
     }
 }
